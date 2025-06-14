@@ -101,8 +101,16 @@ if %errorlevel% equ 1 (
 )
 
 echo [3/3] Pushing to GitHub...
-REM Use the token directly in the push command
-git push https://%GITHUB_TOKEN%@github.com/%REPO_PATH%.git main
+echo.
+echo Executing: git push https://[TOKEN]@github.com/%REPO_PATH%.git main
+echo.
+
+REM First, let's check what branch we're on
+for /f "tokens=*" %%a in ('git branch --show-current') do set CURRENT_BRANCH=%%a
+echo Current branch: %CURRENT_BRANCH%
+
+REM Use the token directly in the push command with verbose output
+git push https://%GITHUB_TOKEN%@github.com/%REPO_PATH%.git %CURRENT_BRANCH%:main 2>&1
 
 if %errorlevel% neq 0 (
     echo.
@@ -110,13 +118,16 @@ if %errorlevel% neq 0 (
     echo ==         DEPLOYMENT FAILED!         ==
     echo ========================================
     echo.
-    echo Common issues:
-    echo - Token may be expired or invalid
-    echo - Token needs 'repo' permissions
-    echo - Check internet connection
-    echo - Ensure 'main' branch exists
+    echo The commit was created locally but failed to push to GitHub.
     echo.
-    echo If you see a login prompt, your token isn't working.
+    echo Debugging info:
+    echo - Repository path: %REPO_PATH%
+    echo - Current branch: %CURRENT_BRANCH%
+    echo - Token starts with: !GITHUB_TOKEN:~0,15!...
+    echo.
+    echo Try running this manually to see the error:
+    echo git push origin %CURRENT_BRANCH%:main
+    echo.
     goto:end
 )
 
@@ -128,6 +139,17 @@ echo.
 echo Changes pushed at: %datetime%
 echo GitHub Pages will update in 1-2 minutes.
 echo.
+
+REM Verify the push actually worked
+echo Verifying push...
+git log origin/main..HEAD --oneline >nul 2>&1
+if %errorlevel% equ 0 (
+    echo.
+    echo [WARNING] There are still unpushed commits!
+    echo The push may have failed silently.
+    echo Check GitHub Desktop or run: git push origin main
+    echo.
+)
 
 :end
 REM Auto-close after 5 seconds on success, wait for keypress on error
