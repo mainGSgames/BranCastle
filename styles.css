@@ -45,10 +45,19 @@ h1 {
     text-align: center;
     color: #8b0000;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    margin-bottom: 80px; /* Increased to prevent overlap */
+    margin-bottom: 20px; /* Adjusted for counter */
     letter-spacing: 2px;
     position: relative;
     z-index: 10;
+}
+
+.card-counter {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: #d4d4d4;
+    text-align: center;
+    margin-bottom: 40px; /* Increased to prevent overlap */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 .settings-btn {
@@ -361,7 +370,8 @@ button:disabled {
 }
 
 .control-group input[type="password"],
-.control-group input[type="text"] {
+.control-group input[type="text"],
+.control-group input[type="number"] {
     width: 100%;
     padding: 10px;
     background: #2a2a2a;
@@ -408,7 +418,11 @@ button:disabled {
 
     h1 {
         font-size: 2rem;
-        margin-bottom: 60px; /* Adjusted for mobile */
+        margin-bottom: 15px; /* Adjusted for mobile */
+    }
+    
+    .card-counter {
+        margin-bottom: 30px; /* Adjusted for mobile */
     }
 
     .card-title {

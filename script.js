@@ -3,15 +3,37 @@ let apiKey = localStorage.getItem('geminiApiKey') || '';
 let currentCardData = { night: null, day: null };
 let selectedCard = null;
 let cardStates = { night: 'back', day: 'back' };
+let deckSize = 52; // Default deck size
+let cardsLeft = null;
 let settings = {
     autoPlayCardFlip: localStorage.getItem('autoPlayCardFlip') !== 'false'
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Load settings
     if (apiKey) {
         document.getElementById('apiKey').value = apiKey;
     }
     document.getElementById('autoPlayCardFlip').checked = settings.autoPlayCardFlip;
+
+    // Load and initialize card counter
+    const storedDeckSize = localStorage.getItem('deckSize');
+    if (storedDeckSize) {
+        deckSize = parseInt(storedDeckSize, 10);
+    }
+    document.getElementById('deckSize').value = deckSize;
+
+    const storedCardsLeft = localStorage.getItem('cardsLeft');
+    // If cardsLeft is stored and valid, use it. Otherwise, initialize it to the deck size.
+    if (storedCardsLeft !== null && !isNaN(parseInt(storedCardsLeft, 10))) {
+        cardsLeft = parseInt(storedCardsLeft, 10);
+    } else {
+        cardsLeft = deckSize;
+        localStorage.setItem('cardsLeft', cardsLeft); // Save the initial value
+    }
+    updateCounterDisplay();
+
+    // Load card back images
     loadCardBackImage('day');
     loadCardBackImage('night');
 });
@@ -36,6 +58,14 @@ function loadCardBackImage(cardType) {
     img.src = imagePath;
 }
 
+// --- Counter UI ---
+function updateCounterDisplay() {
+    const counterEl = document.getElementById('cardCounter');
+    if (counterEl) {
+        counterEl.textContent = `Cards Left: ${cardsLeft}`;
+    }
+}
+
 // --- Settings & UI ---
 function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
 function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
@@ -47,6 +77,20 @@ function saveSettings() {
 
     localStorage.setItem('geminiApiKey', apiKey);
     localStorage.setItem('autoPlayCardFlip', String(settings.autoPlayCardFlip));
+
+    // Handle deck size change
+    const newDeckSizeInput = document.getElementById('deckSize').value;
+    const newDeckSize = parseInt(newDeckSizeInput, 10) || 52; // Default to 52 if invalid
+    
+    // If deck size changes, reset the counter
+    if (newDeckSize !== deckSize) {
+        deckSize = newDeckSize;
+        cardsLeft = deckSize; 
+    }
+    
+    localStorage.setItem('deckSize', deckSize);
+    localStorage.setItem('cardsLeft', cardsLeft);
+    updateCounterDisplay();
 
     showError('Settings saved successfully!', false);
     closeSettings();
@@ -125,18 +169,20 @@ function playCardFlipSound() {
 }
 
 // --- Core API and Generation Logic ---
-function determineWeather() {
-    const random = Math.random();
-    if (random < 0.67) return 'FAIR';
-    const badWeathers = ['STORM', 'MIST', 'THUNDER', 'CLOUD'];
-    return badWeathers[Math.floor(Math.random() * badWeathers.length)];
-}
 async function generateCard(cardType) {
     if (!apiKey) {
         showError('Please set your Gemini API key in settings');
         openSettings();
+        resetToTwoCards();
         return;
     }
+
+    if (cardsLeft <= 0) {
+        showError('The deck is empty. Reset the deck size in settings to play again.', false);
+        resetToTwoCards();
+        return;
+    }
+
     showLoading(true);
     const weather = determineWeather();
     // This function now comes from prompts.js
@@ -164,25 +210,24 @@ async function generateCard(cardType) {
         });
         if (!response.ok) throw new Error((await response.json()).error?.message || 'API request failed');
         const data = await response.json();
-        console.log('Full API response:', JSON.stringify(data, null, 2));
         const candidate = data.candidates?.[0];
-        if (!candidate) {
-            throw new Error('No candidates in API response');
-        }
-        if (candidate.finishReason === 'MAX_TOKENS') {
-            throw new Error('Response was truncated due to token limit. Try again.');
-        }
+        if (!candidate) throw new Error('No candidates in API response');
+        if (candidate.finishReason === 'MAX_TOKENS') throw new Error('Response was truncated due to token limit. Try again.');
+        
         const content = candidate.content?.parts?.[0]?.text;
-        console.log('Extracted content:', content);
-        if (!content) {
-            console.log('Response structure:', data);
-            throw new Error('No text content in API response');
-        }
+        if (!content) throw new Error('No text content in API response');
+        
         const jsonStr = content.substring(content.indexOf('{'), content.lastIndexOf('}') + 1);
-        console.log('Extracted JSON string:', jsonStr);
         const cardData = JSON.parse(jsonStr);
+
+        // Decrement counter on successful generation
+        cardsLeft--;
+        localStorage.setItem('cardsLeft', cardsLeft);
+        updateCounterDisplay();
+        
         currentCardData[cardType] = cardData;
         displayCard(cardData, cardType);
+
     } catch (error) {
         console.error('Error:', error);
         showError(`Failed to generate card: ${error.message}`);
@@ -191,6 +236,13 @@ async function generateCard(cardType) {
     } finally {
         showLoading(false);
     }
+}
+
+function determineWeather() {
+    const random = Math.random();
+    if (random < 0.67) return 'FAIR';
+    const badWeathers = ['STORM', 'MIST', 'THUNDER', 'CLOUD'];
+    return badWeathers[Math.floor(Math.random() * badWeathers.length)];
 }
 
 function displayCard(cardData, cardType) {
