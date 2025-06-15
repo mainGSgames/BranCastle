@@ -33,6 +33,28 @@ WEATHER EFFECTS (affect entire round):
 - THUNDER: Cannot stake vampires, Sisters deal +1 damage
 - CLOUD: Resolved Night card shuffled back into deck
 
+ROOMS IN GAME:
+- List room names here.
+- Catacombs 1
+- First Floor 2
+- Second Floor 3
+- Third Floor 4
+- Fourth Floor 5
+- Crypt 6
+- Dungeon 7
+- Entrance Hall 8
+- Blood Storage 9
+- Ballroom 10
+- Dining Room 11
+- Great Hall 12
+- Library 13
+- First Tower Room 14
+- Master Bedroom 15: Vampire Sade is more powerful in this rom and heros take damage here
+- Second Tower Room 16
+
+
+
+
 ITEMS IN GAME:
 - Garlic: Block 1 vampire attack
 - Holy Water: Heal 1 HP or cure vampirism
@@ -44,12 +66,12 @@ ITEMS IN GAME:
 CARD DESIGN RULES:
 1. Effects must reference specific game mechanics (D6 rolls, room names, item names, sister names)
 2. Create tactical decisions - players should debate best response
-3. Night cards are immediate threats/challenges
-4. Day cards offer risky opportunities or brief respites
+3. Night cards are sometimes immediate threats/challenges
+4. Day cards offer risky opportunities or good events (for the players), current player might be transfered from one room to another
 5. Keep text concise - maximum 2 sentences for story, clear mechanical effect
 6. Weather MUST affect card resolution when relevant
-
-
+7. There are six game rounds on a day card.
+8. There are six game rounds on one night card.
 
 `;function getCardPrompt(cardType, weather) {
     const nightInstructions = `
@@ -82,6 +104,7 @@ IMPORTANT:
 - Story text: MAX 2 sentences, evocative but brief
 - Effect text: Clear, specific, mechanically unambiguous
 - Current weather (${weather}) must influence the effect when logical
+- Concider referencing real historical facts from Bran Castle history and lore
 
 Respond in this exact JSON format:
 {

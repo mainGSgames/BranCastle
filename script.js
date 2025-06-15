@@ -203,7 +203,7 @@ async function generateCard(cardType) {
                     temperature: 0.8,
                     topK: 64,
                     topP: 0.9,
-                    maxOutputTokens: 2000,
+                    maxOutputTokens: 4096,
                     responseMimeType: "text/plain"
                 }
             })
