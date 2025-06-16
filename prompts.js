@@ -7,14 +7,17 @@ You are generating cards for "Bran Castle - Dracula's Domains", a gothic horror 
 
 GAME OVERVIEW:
 - Players win by destroying all three vampire sisters AND Count Dracula before drawing 60 cards
-- Players lose if any hero dies OR 60 cards are drawn
+- Players lose if any hero dies OR 50,60, or 70 cards are drawn, determines the number before the game starts
 - Each turn: DAY phase (3 actions per hero) then NIGHT phase (draw Night card)
-- Heroes become infected vampires at 1-2 HP and must be healed
+- Heroes become infected vampires at 1-2 HP and must be healed of holy water in the coffin  
 
 VAMPIRE SISTERS (must be killed before Dracula appears):
-- Mary (White): Causes mourning/guilt, forces heroes to skip turns or lose willpower
-- Sade (Red): Dominates minds, drains willpower, turns heroes against each other
-- Luci (Black): Dream-weaver, causes hallucinations, makes memory searches harder
+- Mary (White): Causes mourning/guilt, forces heroes to lose willpower by one
+- Mary is weak against garlic 
+- Sade (Red): Dominates minds, drains two health in the in master bedroom and one outside, Sade is sexy seduction domina
+- Sade is weak against a cross
+- Luci (Black): Dream-weaver, causes hallucinations, she wants to harm sanity by one 
+- Luci is weak against holy water
 
 HEROES & STARTING ITEMS:
 - Van Helsing (Cross), Dr Seward (Holy Water), Quincey Morris (Revolver)
@@ -31,37 +34,37 @@ WEATHER EFFECTS (affect entire round):
 - STORM: Day loses 1 round, Night gains 1 round, no crafting allowed
 - MIST: Memory searches only succeed on D6 roll of 6
 - THUNDER: Cannot stake vampires, Sisters deal +1 damage
-- CLOUD: Resolved Night card shuffled back into deck
+
 
 ROOMS IN GAME:
 - List room names here.
-- Catacombs 1
-- First Floor 2
-- Second Floor 3
-- Third Floor 4
-- Fourth Floor 5
-- Crypt 6
-- Dungeon 7
-- Entrance Hall 8
-- Blood Storage 9
-- Ballroom 10
-- Dining Room 11
-- Great Hall 12
-- Library 13
-- First Tower Room 14
-- Master Bedroom 15: Vampire Sade is more powerful in this rom and heros take damage here
-- Second Tower Room 16
+- Catacombs stairwell nr1: leads to Dungeon or Crypt
+- First Floor stairwell nr2: leads to Entrance or Blood Storage, if Dracula is here i got one power
+- Second Floor stairwell nr3: leads to Ballroom or Dining Room
+- Third Floor stairwell nr4: leads to Great Hall or Library
+- Fourth Floor stairwell nr5: leads to First Tower Bedroom or Master Bedroom or Second Tower Bedroom
+- Crypt nr6: During six day trips you have a chance to impale vampires
+- Dungeon nr7: If Dracula's servants take you outside the castle, you go into the dungeon
+- Entrance Hall nr8: Starting position when the game starts in the daytime
+- Blood Storage nr9: Dracula gets a power point here
+- Ballroom 10: If heroes meet here, they will get a Willpower 
+- Dining Room nr11: Stand over a turn and eat and you get a health
+- Great Hall nr12 
+- Library nr13: In card you can 
+- First Tower Bed Room nr14: one rest in First Tower Bedroom heals one optional strength
+- Master Bedroom nr15: The vampire Sade comes at you for every rest, one rest in Master Bedroom heals two optional strength
+- Second Tower Bed Room nr16: one rest in Second Tower Bedroom heals one optional strength 
 
 
 
 
 ITEMS IN GAME:
-- Garlic: Block 1 vampire attack
-- Holy Water: Heal 1 HP or cure vampirism
-- Cross: Teleport vampire to different room
-- Wooden Stakes: Kill sleeping vampires (need Hammer too)
+- Garlic: Block 1 Mary vampire attack
+- Holy Water: Block 1 Luci vampire attack, Heal 1 HP or cure vampirism
+- Cross: Block 1 Sade vampire attack and teleport Sade vampire to Crypt room
+- Wooden Stakes: Kill sleeping vampires (need Hammer too) and a Will test 5-6 succeed
 - Silver-Tipped Stake: Only item that can kill Dracula
-- Revolver/Club: Combat items with special abilities
+- Revolver: Combat items with special abilities, D6 5-6 vampires is stunned for one turn
 
 CARD DESIGN RULES:
 1. Effects must reference specific game mechanics (D6 rolls, room names, item names, sister names)
@@ -76,7 +79,7 @@ CARD DESIGN RULES:
 `;function getCardPrompt(cardType, weather) {
     const nightInstructions = `
 NIGHT CARD: Create an immediate threat or challenge. Examples:
-- Sister attacks: "Sade appears in [Room], all heroes there lose 2 Willpower"  
+- Sister attacks: "Sade appears in [Room], all heroes there lose 1 Willpower"  
 - Movement restrictions: "Luci's dreams block the Catacombs until a hero rolls 5+"
 - Resource drain: "Mary's mourning - discard 2 items or each hero loses 1 Sanity"
 - Weather interaction: If STORM, could affect action economy; if MIST, affect searches
@@ -86,7 +89,7 @@ NIGHT CARD: Create an immediate threat or challenge. Examples:
 DAY CARD: Create a risky opportunity or double-edged blessing. Examples:
 - Found supplies: "Gain Holy Water, but make a Sanity check (4+) or become infected"
 - Temporary advantage: "While Day lasts, +1 to combat rolls but -1 to Willpower"  
-- Information: "Glimpse Mary in the Library, but all heroes lose 1 Sanity from her wail"
+- Information: "All vampires sleep in their coffins, time to kill them"
 - Weather interaction: If THUNDER, no staking benefit; if CLOUD, effect might not last
 
 
@@ -100,7 +103,7 @@ Generate a ${cardType === 'night' ? 'Night' : 'Day'} card for the game with curr
 ${specificInstructions}
 
 IMPORTANT: 
-- Reference specific game elements (room names, sister names, item names, dice rolls)
+- Reference specific game elements (room names, sister names, heroes name, item names, dice rolls, will test)
 - Story text: MAX 2 sentences, evocative but brief
 - Effect text: Clear, specific, mechanically unambiguous
 - Current weather (${weather}) must influence the effect when logical
