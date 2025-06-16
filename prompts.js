@@ -51,9 +51,9 @@ ROOMS IN GAME:
 - Dining Room nr11: Stand over a turn and eat and you get a health
 - Great Hall nr12 
 - Library nr13: In card you can 
-- First Tower Bed Room nr14: one rest in First Tower Bedroom heals one optional strength
-- Master Bedroom nr15: The vampire Sade comes at you for every rest, one rest in Master Bedroom heals two optional strength
-- Second Tower Bed Room nr16: one rest in Second Tower Bedroom heals one optional strength 
+- First Tower Bed Room nr14: one rest in First Tower Bedroom heals one optional strength of Willpower, Sanity or Health
+- Master Bedroom nr15: The vampire Sade comes at you for every rest one step closer every turn, one turn rest in Master Bedroom heals two optional strength of Willpower, Sanity or Health
+- Second Tower Bed Room nr16: one rest in Second Tower Bedroom heals one optional strength of Willpower, Sanity or Health 
 
 
 
