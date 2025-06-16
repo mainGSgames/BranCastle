@@ -67,15 +67,15 @@ ITEMS IN GAME:
 - Revolver: Combat items with special abilities, D6 5-6 vampires is stunned for one turn
 
 CARD DESIGN RULES:
-1. Effects must reference specific game mechanics (D6 rolls, room names, item names, sister names)
-2. Create tactical decisions - players should debate best response
-3. Night cards are sometimes immediate threats/challenges
-4. Day cards offer risky opportunities or good events (for the players), current player might be transfered from one room to another
-5. Keep text concise - maximum 2 sentences for story, clear mechanical effect
-6. Weather MUST affect card resolution when relevant
-7. There are six game rounds on a day card.
-8. There are six game rounds on one night card.
-
+-1. Effects must reference specific game mechanics (D6 rolls, room names, item names, sister names)
+-2. Create tactical decisions - players should debate best response
+-3. Night cards are sometimes immediate threats/challenges
+-4. Day cards offer risky opportunities or good events (for the players), current player might be transfered from one room to another
+-5. Keep text concise - maximum 2 sentences for story, clear mechanical effect
+-6. Weather MUST affect card resolution when relevant
+-7. There are six game rounds on a day card.
+-8. There are six game rounds on one night card.
+-10. A current hero must have a name
 `;function getCardPrompt(cardType, weather) {
     const nightInstructions = `
 NIGHT CARD: Create an immediate threat or challenge. Examples:
