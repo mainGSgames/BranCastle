@@ -75,7 +75,8 @@ CARD DESIGN RULES:
 -6. Weather MUST affect card resolution when relevant
 -7. There are six game rounds on a day card.
 -8. There are six game rounds on one night card.
--10. A current hero must have a name
+-10. There are six heroes: Van Helsing with a cross, Dr Seward with a holy water, Quincey Morris with a revolver,
+Lord Godalming with a wooden mallet, Mina Harker with a garlic and Jonathan Harker with a Key 
 `;function getCardPrompt(cardType, weather) {
     const nightInstructions = `
 NIGHT CARD: Create an immediate threat or challenge. Examples:
