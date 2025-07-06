@@ -1,0 +1,12 @@
+{
+  "title": "Mournful Echoes",
+  "story": "A sudden, mournful wail pierces the night, chilling you to the bone. Mary's despairing presence seeks to drain the heroes' resolve.",
+  "effect": "All heroes in the Second Floor or Crypt immediately lose 1 Willpower. If Mina Harker is in either of these rooms, all heroes in that specific room are immune to this effect.",
+  "weather": "FAIR",
+  "likelihood": 7,
+  "required_heroes": [],
+  "id": "880d0093-2388-4e1a-af28-0716a93832c6",
+  "type": "night",
+  "created_at": "2025-07-06T21:29:57.970915",
+  "updated_at": "2025-07-06T21:29:57.970915"
+}

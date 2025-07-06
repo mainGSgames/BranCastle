@@ -1,0 +1,12 @@
+{
+  "title": "Oppressive Gloom",
+  "story": "A heavy, suffocating atmosphere descends upon the castle, a tangible presence of ancient evil that seems to drain the very air from your lungs.",
+  "effect": "Each hero must immediately choose: either lose 1 Willpower OR move to an adjacent connected room. Heroes currently in the Catacombs, Dungeon, or Crypt cannot choose to lose Willpower and must instead immediately move to an adjacent connected room if possible.",
+  "weather": "FAIR",
+  "likelihood": 6,
+  "required_heroes": [],
+  "id": "e926ae52-3cda-40f7-934a-573ca821e4dc",
+  "type": "night",
+  "created_at": "2025-07-06T21:30:31.543724",
+  "updated_at": "2025-07-06T21:30:31.543724"
+}
