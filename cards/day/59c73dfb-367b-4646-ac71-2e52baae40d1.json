@@ -1,0 +1,12 @@
+{
+  "title": "A Glimmer of Hope in the Gloom",
+  "story": "The thick clouds dim the light, yet somehow make the castle's hidden alcoves more visible. You stumble upon a small cache of supplies, but the suffocating atmosphere taxes your resolve.",
+  "effect": "One hero, chosen by the players, may immediately gain 1 Holy Water or 1 Garlic item (choose one, if available in the item deck). However, the oppressive gloom and silence of the cloud-covered day weigh heavily on your minds. All heroes lose 1 Sanity.",
+  "weather": "CLOUD",
+  "likelihood": 7,
+  "required_heroes": [],
+  "id": "59c73dfb-367b-4646-ac71-2e52baae40d1",
+  "type": "day",
+  "created_at": "2025-07-06T23:31:59.273433",
+  "updated_at": "2025-07-06T23:31:59.273433"
+}
