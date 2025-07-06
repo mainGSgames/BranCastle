@@ -29,7 +29,7 @@ if "%COMMIT_MSG%"=="" (
 :: 2. Stage relevant files ---------------------------------------
 echo.
 echo Staging modified and new files …
-git add cards templates\game.html templates\editor.html
+git add -A
 
 :: 3. Commit (if there is anything new) --------------------------
 echo.

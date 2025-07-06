@@ -37,7 +37,7 @@ def main():
     fresh_dir(DIST / "cards")
     copy_cards("night")
     copy_cards("day")
-    shutil.copy(TEMPL, DIST / "game.html")
+    shutil.copy(TEMPL, DIST / "index.html")
     shutil.copytree(STATIC, DIST / "static")
     print("✅  /dist is ready")
 
