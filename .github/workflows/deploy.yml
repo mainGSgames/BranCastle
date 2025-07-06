@@ -2,12 +2,15 @@ name: Deploy game to GitHub Pages
 
 on:
   push:
-    branches: [ ReworkBranch ]   # adjust if your default branch differs
-  workflow_dispatch:     # manual trigger
+    branches: [ ReworkBranch ]
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -24,7 +27,8 @@ jobs:
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
+          # The GITHUB_TOKEN now has write permissions because of the block above
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: gh-pages
-          force_orphan: true     # keep branch history clean
+          force_orphan: true
