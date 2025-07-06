@@ -2,7 +2,7 @@ name: Deploy game to GitHub Pages
 
 on:
   push:
-    branches: [ main ]   # adjust if your default branch differs
+    branches: [ ReworkBranch ]   # adjust if your default branch differs
   workflow_dispatch:     # manual trigger
 
 jobs:
