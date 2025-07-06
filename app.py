@@ -36,47 +36,82 @@ DEFAULT_CONFIG = {
 }
 
 GAME_CONTEXT = """
-You are generating cards for "Bran Castle - Dracula's Domains", a gothic horror co-operative board game for 1-5 players.
-Cards will remain active for 6 turns which is the time for a day or night phase to complete, then the player will draw the next day or night card.
-So either card has some effect that might be active state during these 6 turns (day / night phase) or it is an immediate effect.
+You are generating cards for \"Bran Castle - Dracula's Domains\", a gothic-horror co-operative board game for 1-6 players.
+Cards remain active for exactly six turns (the length of one Day or Night
+phase) unless the effect text states they are immediate.
 
 GAME OVERVIEW:
-- Players win by destroying all three vampire sisters AND Count Dracula before drawing 60 cards
-- Players lose if any hero dies OR 50,60, or 70 cards are drawn
-- Each turn: DAY phase (3 actions per hero) then NIGHT phase (draw Night card)
-- Heroes become infected vampires at 1-2 HP and must be healed with holy water
+- Players win by destroying all three vampire sisters and Count Dracula
+  before drawing 60 cards.
+- Players lose if any hero dies or if the pre-chosen draw limit of
+  50 / 60 / 70 cards is reached.
+- Each game turn: DAY phase (each hero gets 3 actions) ? NIGHT phase
+  (draw 1 Night card).
+- Heroes reduced to 1-2 HP become infected vampires and must be healed
+  with Holy Water whilst in a coffin.
 
+CARD DESIGN RULES:
+-1. Effects must reference specific game mechanics (D6 rolls, room names,
+    item names, sister names).
+-2. Create tactical decisions – players should discuss their best response.
+-3. Night cards are often immediate threats/challenges.
+-4. Day cards offer risky opportunities or blessings; the active hero may
+    be teleported between rooms.
+-5. Keep text concise – max 2 sentences for story; then clear mechanics.
+-6. Weather MUST influence the effect when relevant.
+-7. Each Day or Night card lasts exactly 6 game rounds unless noted.
+-8. There are six heroes (listed above) with their signature items.
+  
 VAMPIRE SISTERS (must be killed before Dracula appears):
-- Mary (White): Causes mourning/guilt, forces heroes to lose willpower
-- Mary is weak against garlic 
-- Sade (Red): Dominates minds, drains health, seductive domina
-- Sade is weak against a cross
-- Luci (Black): Dream-weaver, causes hallucinations, harms sanity
-- Luci is weak against holy water
+- Mary (White) – Spreads mourning & guilt; each of her strikes makes
+  heroes lose 1 Willpower. Weak to Garlic.
+- Sade (Red) – Seductive domina who dominates minds; drains 2 Health
+  in the Master Bedroom and 1 elsewhere. Weak to a Cross.
+- Luci (Black) – Dream-weaver causing hallucinations; erodes 1 Sanity.
+  Weak to Holy Water.
 
 HEROES & STARTING ITEMS:
-- Van Helsing (Cross)
-- Dr Seward (Holy Water)
-- Quincey Morris (Revolver)
-- Lord Godalming (Wooden Club)
-- Mina Harker (Garlic)
-- Jonathan Harker (Key)
+- Van Helsing (Cross), Dr Seward (Holy Water), Quincey Morris (Revolver)
+- Lord Godalming (Wooden Club), Mina Harker (Garlic), Jonathan Harker (Key)
 
 KEY MECHANICS:
-- Memory Search: Flip 2 face-down cards, if match = gain that item
-- Combat: Roll D6, 5-6 hits vampires
-- Movement: 1 action to move between connected rooms
-- Health/Sanity/Willpower: Tracked on D6 (1-6), death at 0
+- Memory Search – Flip two face-down cards; if they match, gain that item.
+- Combat – Roll D6; results 5-6 hit vampires (items may modify).
+- Movement – 1 action to move between connected rooms.
+- Health / Sanity / Willpower – tracked on a D6 (1-6); death at 0.
 
-WEATHER EFFECTS:
-- FAIR: No effect
-- STORM: Day loses 1 round, Night gains 1 round, no crafting allowed
-- MIST: Memory searches only succeed on D6 roll of 6
-- THUNDER: Cannot stake vampires, Sisters deal +1 damage
+WEATHER EFFECTS (entire round):
+- FAIR – No effect.
+- STORM – Day loses 1 round, Night gains 1 round, no crafting allowed.
+- MIST – Memory Searches succeed only on a D6 roll of 6.
+- THUNDER – Cannot stake vampires; Sisters deal +1 damage.
 
-ROOMS: Catacombs, First Floor, Second Floor, Third Floor, Fourth Floor, Crypt, Dungeon, 
-Entrance Hall, Blood Storage, Ballroom, Dining Room, Great Hall, Library, 
-First Tower Bedroom, Master Bedroom, Second Tower Bedroom
+ROOMS IN GAME:
+- 1 Catacombs Stairwell ? Dungeon / Crypt
+- 2 First-Floor Stairwell ? Entrance Hall / Blood Storage (Dracula here ? +1 Power)
+- 3 Second-Floor Stairwell ? Ballroom / Dining Room
+- 4 Third-Floor Stairwell ? Great Hall / Library
+- 5 Fourth-Floor Stairwell ? First Tower Bedroom / Master Bedroom / Second Tower Bedroom
+- 6 Crypt – During Day you may attempt to impale sleeping vampires.
+- 7 Dungeon – Dragged outside? You awake here.
+- 8 Entrance Hall – All heroes start here at Daybreak.
+- 9 Blood Storage – Dracula gains 1 Power when present.
+- 10 Ballroom – When heroes meet here, each gains +1 Willpower.
+- 11 Dining Room – Spend a turn feasting to heal +1 Health.
+- 12 Great Hall – An open space for grand encounters.
+- 13 Library – Tomes may reveal secrets (Memory Search gains +1?).
+- 14 First Tower Bedroom – Rest heals 1 of Willpower / Sanity / Health.
+- 15 Master Bedroom – Sade advances one step closer to resting heroes each
+  turn; resting heals 2 points split as desired.
+- 16 Second Tower Bedroom – Rest heals 1 of Willpower / Sanity / Health.
+
+ITEMS IN GAME:
+- Garlic – Blocks 1 Mary attack.
+- Holy Water – Blocks 1 Luci attack, heals +1 HP or cures vampirism.
+- Cross – Blocks 1 Sade attack and teleports Sade to the Crypt.
+- Wooden Stakes (+Hammer) – Kill sleeping vampires on Will test 5-6.
+- Silver-Tipped Stake – Only item that can kill Dracula.
+- Revolver – On a 5-6 hit, the vampire is stunned for 1 turn.
 """
 
 def load_config():
