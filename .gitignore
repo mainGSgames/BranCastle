@@ -86,9 +86,6 @@ desktop.ini
 # Backup
 cards_backup/
 
-# Audio
-*.mp3
-
 # Other
 *.log
 
