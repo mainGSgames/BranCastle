@@ -1,53 +1,93 @@
 @echo off
+SETLOCAL ENABLEDELAYEDEXPANSION
 REM ============================================================
-REM  Bran Castle – PUBLISH CHANGES TO GITHUB
+REM  Bran Castle – PUBLISH CHANGES TO GITHUB (Token-based)
 REM  ------------------------------------------------------------
-REM  • Asks for a commit message (or uses date/time by default)
-REM  • git add         (cards + templates)
-REM  • git commit
-REM  • git pull --rebase   (just in case)
-REM  • git push
+REM  • Reads GITHUB_TOKEN from .env file for authentication.
+REM  • Asks for a commit message (or uses date/time by default).
+REM  • git add, commit, pull --rebase, and push.
 REM  ------------------------------------------------------------
-REM  Requires: git installed and an origin remote with push
-REM  rights (the repo’s GITHUB_TOKEN or cached credentials).
+REM  Requires: git, .env file with GITHUB_TOKEN.
 REM ============================================================
-
 echo.
 echo ========================================
 echo   Bran Castle – Publish Card Changes
 echo ========================================
 echo.
 
-SETLOCAL ENABLEDELAYEDEXPANSION
+:: --- 1. Authentication Setup (from your other script) ---
+IF NOT EXIST .env (
+    echo [FATAL ERROR] The .env file is missing!
+    echo.
+    echo Please create a file named .env in this folder.
+    echo Inside the file, add one line: GITHUB_TOKEN=ghp_YourTokenHere
+    goto end
+)
 
-:: 1. Ask for a commit message -----------------------------------
+:: Read the token from the .env file
+for /f "tokens=1,* delims==" %%a in ('type .env ^| findstr /i "GITHUB_TOKEN"') do set GITHUB_TOKEN=%%b
+
+:: Clean up the token variable (remove spaces/quotes)
+set GITHUB_TOKEN=%GITHUB_TOKEN: =%
+set GITHUB_TOKEN=%GITHUB_TOKEN:"=%
+set GITHUB_TOKEN=%GITHUB_TOKEN:'=%
+
+if not defined GITHUB_TOKEN (
+    echo [FATAL ERROR] Could not read GITHUB_TOKEN from .env file.
+    echo Make sure the file contains: GITHUB_TOKEN=ghp_YourTokenHere
+    goto end
+)
+
+:: Get the repository URL to build the push command
+for /f "tokens=*" %%a in ('git config --get remote.origin.url') do set REPO_URL=%%a
+set "REPO_PATH=!REPO_URL:https://github.com/=!"
+set "REPO_PATH=!REPO_PATH:.git=!"
+
+echo [INFO] Token found and ready for use.
+
+:: --- 2. Ask for a commit message ---
+echo.
 set /P COMMIT_MSG=Enter a short description of your changes: 
 if "%COMMIT_MSG%"=="" (
     set COMMIT_MSG=Card update %DATE% %TIME%
 )
 
-:: 2. Stage relevant files ---------------------------------------
+:: --- 3. Stage relevant files ---
 echo.
-echo Staging modified and new files …
+echo Staging modified and new files ...
 git add -A
 
-:: 3. Commit (if there is anything new) --------------------------
+:: --- 4. Commit (if there is anything new) ---
 echo.
-echo Creating commit …
+echo Creating commit ...
 git commit -m "%COMMIT_MSG%"
 if errorlevel 1 (
     echo No changes to commit – nothing to do.
     goto end
 )
 
-:: 4. Pull last-minute upstream changes then push ----------------
+:: --- 5. Pull last-minute upstream changes then push ---
 echo.
-echo Pulling latest from origin …
+echo Pulling latest from origin ...
 git pull --rebase
+if errorlevel 1 (
+    echo [ERROR] Failed to pull from origin. Please resolve conflicts manually.
+    goto end
+)
 
 echo.
-echo Pushing to origin …
-git push
+echo Pushing to origin ...
+:: Get the current branch name to push it correctly
+for /f "tokens=*" %%a in ('git branch --show-current') do set CURRENT_BRANCH=%%a
+
+:: Use the token in the push URL to avoid signing in
+git push https://!GITHUB_TOKEN!@github.com/!REPO_PATH!.git !CURRENT_BRANCH!
+
+if errorlevel 1 (
+    echo.
+    echo [ERROR] Push failed! Please check your token and permissions.
+    goto end
+)
 
 echo.
 echo All done!  ✅
