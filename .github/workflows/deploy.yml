@@ -1,0 +1,30 @@
+name: Deploy game to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]   # adjust if your default branch differs
+  workflow_dispatch:     # manual trigger
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Build static game
+        run: |
+          python scripts/build_static_game.py
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          force_orphan: true     # keep branch history clean

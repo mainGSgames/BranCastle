@@ -4,424 +4,223 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bran Castle - Dracula's Domains</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ------------- GLOBAL RESET & BACKGROUND ------------- */
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            font-family:'Crimson Text',serif;
+            background:#0a0a0a;
+            color:#d4d4d4;
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            overflow-x:hidden;
+            position:relative;
         }
-
-        body {
-            font-family: 'Crimson Text', serif;
-            background: #0a0a0a;
-            color: #d4d4d4;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+        body::before{
+            content:'';
+            position:fixed;inset:0;
             background:
-                radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(139, 0, 0, 0.2) 0%, transparent 50%),
-                linear-gradient(to bottom, #0a0a0a 0%, #1a0a0a 100%);
-            z-index: -1;
+                radial-gradient(circle at 20% 50%,rgba(139,0,0,.3)0%,transparent 50%),
+                radial-gradient(circle at 80% 80%,rgba(139,0,0,.2)0%,transparent 50%),
+                linear-gradient(to bottom,#0a0a0a 0%,#1a0a0a 100%);
+            z-index:-1;
         }
 
-        .container {
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
+        /* ------------- BUTTONS ------------- */
+        .back-btn{
+            position:absolute;top:20px;left:20px;
+            background:rgba(139,0,0,.3);
+            border:1px solid #8b0000;color:#d4d4d4;
+            padding:10px 20px;border-radius:5px;
+            cursor:pointer;font-family:'Cinzel',serif;transition:.3s;
+        }
+        .back-btn:hover{background:rgba(139,0,0,.5)}
+
+        .reset-btn{
+            background:#8b0000;color:#fff;border:0;
+            padding:10px 20px;border-radius:5px;
+            cursor:pointer;font-family:'Cinzel',serif;
+            margin:0 auto 20px;display:block;transition:.3s;
+        }
+        .reset-btn:hover{background:#a00000}
+
+        /* ---- NEW: options button ---- */
+        .options-btn{
+            position:fixed;top:20px;right:20px;
+            background:#8b0000;color:#fff;border:0;
+            padding:10px 20px;border-radius:5px;
+            font-family:'Cinzel',serif;cursor:pointer;transition:.3s;
+        }
+        .options-btn:hover{background:#a00000}
+
+        /* ------------- CONTAINER & HEADINGS ------------- */
+        .container{
+            width:100%;max-width:800px;padding:20px;position:relative;z-index:1;
+        }
+        h1{
+            font-family:'Cinzel',serif;font-size:2.5rem;text-align:center;
+            color:#8b0000;text-shadow:2px 2px 4px rgba(0,0,0,.8);
+            margin-bottom:20px;letter-spacing:2px;position:relative;z-index:10;
+        }
+        .card-counter{
+            font-family:'Cinzel',serif;font-size:1.2rem;text-align:center;
+            margin-bottom:40px;text-shadow:1px 1px 2px rgba(0,0,0,.7);
         }
 
-        h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            text-align: center;
-            color: #8b0000;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 10;
+        /* ------------- CARD LAYOUT ------------- */
+        .cards-container{
+            display:flex;justify-content:center;gap:40px;
+            max-width:900px;margin:0 auto;height:560px;flex-wrap:wrap;
+        }
+        .card-container{
+            perspective:1000px;width:300px;height:560px;cursor:pointer;
+            transition:.8s cubic-bezier(.68,-.55,.265,1.55);position:relative;
+        }
+        .card-container.expanded{width:400px}
+        .card-container.selected{transform:translateX(0) scale(1.1);z-index:10}
+        .card-container.hidden{opacity:0;transform:scale(.8);pointer-events:none}
+        .card-container.night-card.selected{transform:translateX(150px) scale(1.1)}
+        .card-container.night-card.selected.expanded{transform:translateX(50px) scale(1.1)}
+        .card-container.day-card.selected{transform:translateX(-150px) scale(1.1)}
+        .card-container.day-card.selected.expanded{transform:translateX(-50px) scale(1.1)}
+
+        .card-type-label{
+            position:absolute;top:-50px;left:50%;transform:translateX(-50%);
+            font-family:'Cinzel',serif;font-size:1.2rem;color:#8b0000;
+            text-shadow:2px 2px 4px rgba(0,0,0,.8);letter-spacing:1px;
+            text-transform:uppercase;white-space:nowrap;
         }
 
-        .card-counter {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            color: #d4d4d4;
-            text-align: center;
-            margin-bottom: 40px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        /* ----- individual card faces ----- */
+        .card{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.68,-.55,.265,1.55)}
+        .card.flipped{transform:rotateY(180deg)}
+        .card-face{
+            position:absolute;inset:0;border-radius:6px;box-shadow:0 15px 40px rgba(0,0,0,.8);
+            display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;
+            backface-visibility:hidden;
         }
-
-        .back-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(139, 0, 0, 0.3);
-            border: 1px solid #8b0000;
-            color: #d4d4d4;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Cinzel', serif;
+        .card-back{background-size:100% 100%;background-repeat:no-repeat}
+        .card-back.night{background-image:url("/static/img/nightcard.png")}
+        .card-back.day{background-image:url("/static/img/daycard.png")}
+        .card-back-text{font-family:'Cinzel',serif;font-size:2rem;color:#8b0000;text-shadow:2px 2px 4px rgba(0,0,0,.8);text-align:center}
+        .card-front{
+            transform:rotateY(180deg);
+            background:linear-gradient(135deg,#1a0a0a 0%,#2a1a1a 100%);
+            border:3px solid #8b0000;padding:25px;overflow-y:auto;
+            display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
         }
-
-        .back-btn:hover {
-            background: rgba(139, 0, 0, 0.5);
+        .card-content{text-align:center;width:100%}
+        .card-title{
+            font-family:'Cinzel',serif;font-size:1.8rem;color:#8b0000;margin-bottom:20px;
+            text-shadow:2px 2px 4px rgba(0,0,0,.5);
         }
-
-        .reset-btn {
-            background: #8b0000;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Cinzel', serif;
-            margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+        .card-story{font-style:italic;color:#b4b4b4;margin-bottom:20px;line-height:1.6;font-size:1.1rem}
+        .card-effect{
+            background:rgba(139,0,0,.1);border:1px solid #8b0000;border-radius:10px;
+            padding:15px;margin-top:20px;font-size:1rem;line-height:1.5;
         }
-
-        .reset-btn:hover {
-            background: #a00000;
+        .weather-indicator{
+            display:inline-block;padding:5px 15px;background:rgba(139,0,0,.3);
+            border:1px solid #8b0000;border-radius:20px;margin-top:15px;
+            font-size:.9rem;text-transform:uppercase;letter-spacing:1px;
         }
+        .card-id{position:absolute;top:5px;right:10px;font-size:.7rem;color:#666;font-family:monospace}
 
-        .cards-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            height: 560px;
-            flex-wrap: wrap;
+        /* ------------- ERROR & LOADING ------------- */
+        .error{
+            color:#ff6b6b;margin-top:10px;padding:10px;
+            background:rgba(255,0,0,.1);border:1px solid #ff6b6b;border-radius:5px;
+            display:none;text-align:center;
         }
-
-        .card-container {
-            perspective: 1000px;
-            width: 300px;
-            height: 560px;
-            cursor: pointer;
-            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            position: relative;
+        .loading{
+            position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+            background:rgba(26,26,26,.95);border:2px solid #8b0000;border-radius:10px;
+            padding:30px;text-align:center;z-index:2000;display:none;
         }
-
-        .card-container.expanded {
-            width: 400px;
+        .loading-spinner{
+            width:50px;height:50px;border:3px solid rgba(139,0,0,.3);
+            border-top:3px solid #8b0000;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px;
         }
+        @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 
-        .card-container.selected {
-            transform: translateX(0) scale(1.1);
-            z-index: 10;
+        /* ------------- SCROLLBAR ------------- */
+        .card-front::-webkit-scrollbar{width:8px}
+        .card-front::-webkit-scrollbar-track{background:rgba(139,0,0,.1);border-radius:4px}
+        .card-front::-webkit-scrollbar-thumb{background:#8b0000;border-radius:4px}
+        .card-front::-webkit-scrollbar-thumb:hover{background:#a00000}
+
+        /* ------------- NEW: OPTIONS MODAL ------------- */
+        .modal{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.9)}
+        .modal-content{
+            background:#1a1a1a;border:2px solid #8b0000;border-radius:10px;
+            padding:30px;max-width:460px;margin:80px auto;position:relative;
         }
-
-        .card-container.hidden {
-            opacity: 0;
-            transform: scale(0.8);
-            pointer-events: none;
+        .close-modal{
+            position:absolute;top:10px;right:15px;font-size:28px;background:none;border:0;
+            color:#8b0000;cursor:pointer;
         }
-
-        .card-container.night-card.selected {
-            transform: translateX(150px) scale(1.1);
+        .hero-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:20px 0}
+        .hero-item{display:flex;align-items:center;background:#2a2a2a;border-radius:5px;padding:8px}
+        .hero-item input{margin-right:8px}
+        .save-btn{
+            background:#8b0000;color:#fff;padding:10px 20px;border:0;border-radius:5px;
+            font-family:'Cinzel',serif;cursor:pointer;transition:.3s;
         }
+        .save-btn:hover{background:#a00000}
 
-        .card-container.night-card.selected.expanded {
-            transform: translateX(50px) scale(1.1);
-        }
-
-        .card-container.day-card.selected {
-            transform: translateX(-150px) scale(1.1);
-        }
-
-        .card-container.day-card.selected.expanded {
-            transform: translateX(-50px) scale(1.1);
-        }
-
-        .card-type-label {
-            position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            color: #8b0000;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .card.flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 6px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .card-back {
-            background-size: 100% 100%;  /* stretch to fill container completely */
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .card-back.night {
-            background-image: url("/static/img/nightcard.png");
-        }
-
-        .card-back.day {
-            background-image: url("/static/img/daycard.png");
-        }
-
-        .card-back-text {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            color: #8b0000;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            text-align: center;
-        }
-
-        .card-front {
-            transform: rotateY(180deg);
-            background: linear-gradient(135deg, #1a0a0a 0%, #2a1a1a 100%);
-            border: 3px solid #8b0000;
-            padding: 25px;
-            overflow-y: auto;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: stretch;
-        }
-
-        .card-content {
-            text-align: center;
-            width: 100%;
-        }
-
-        .card-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            color: #8b0000;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .card-story {
-            font-style: italic;
-            color: #b4b4b4;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            font-size: 1.1rem;
-        }
-
-        .card-effect {
-            background: rgba(139, 0, 0, 0.1);
-            border: 1px solid #8b0000;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-
-        .weather-indicator {
-            display: inline-block;
-            padding: 5px 15px;
-            background: rgba(139, 0, 0, 0.3);
-            border: 1px solid #8b0000;
-            border-radius: 20px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .card-id {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            font-size: 0.7rem;
-            color: #666;
-            font-family: monospace;
-        }
-
-        .error {
-            color: #ff6b6b;
-            margin-top: 10px;
-            padding: 10px;
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid #ff6b6b;
-            border-radius: 5px;
-            display: none;
-            text-align: center;
-        }
-
-        .loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(26, 26, 26, 0.95);
-            border: 2px solid #8b0000;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            z-index: 2000;
-            display: none;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(139, 0, 0, 0.3);
-            border-top: 3px solid #8b0000;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Scrollbar styling */
-        .card-front::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .card-front::-webkit-scrollbar-track {
-            background: rgba(139, 0, 0, 0.1);
-            border-radius: 4px;
-        }
-
-        .card-front::-webkit-scrollbar-thumb {
-            background: #8b0000;
-            border-radius: 4px;
-        }
-
-        .card-front::-webkit-scrollbar-thumb:hover {
-            background: #a00000;
-        }
-
-        @media (max-width: 768px) {
-            .cards-container {
-                gap: 20px;
-                height: auto;
-                align-items: center;
-            }
-
-            .card-container {
-                width: 280px;
-                height: 480px;
-            }
-
-            .card-container.expanded {
-                width: 340px;
-                height: 520px;
-            }
-
+        /* ------------- RESPONSIVE ------------- */
+        @media(max-width:768px){
+            .cards-container{gap:20px;height:auto;align-items:center}
+            .card-container{width:280px;height:480px}
+            .card-container.expanded{width:340px;height:520px}
             .card-container.night-card.selected,
-            .card-container.day-card.selected {
-                transform: translateX(0) scale(1.05);
-            }
-
-            h1 {
-                font-size: 2rem;
-                margin-bottom: 15px;
-            }
-            
-            .card-counter {
-                margin-bottom: 30px;
-            }
-
-            .card-title {
-                font-size: 1.5rem;
-            }
-
-            .card-story {
-                font-size: 1rem;
-            }
-
-            .card-type-label {
-                top: -40px;
-                font-size: 1rem;
-            }
+            .card-container.day-card.selected{transform:translateX(0) scale(1.05)}
+            h1{font-size:2rem;margin-bottom:15px}
+            .card-counter{margin-bottom:30px}
+            .card-title{font-size:1.5rem}
+            .card-story{font-size:1rem}
+            .card-type-label{top:-40px;font-size:1rem}
         }
-
-        @media (max-width: 480px) {
-            .card-container {
-                width: 250px;
-                height: 420px;
-            }
-
-            .card-container.expanded {
-                width: 300px;
-                height: 460px;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .container {
-                padding: 15px;
-            }
+        @media(max-width:480px){
+            .card-container{width:250px;height:420px}
+            .card-container.expanded{width:300px;height:460px}
+            h1{font-size:1.8rem}
+            .container{padding:15px}
         }
     </style>
 </head>
 <body>
+
     <button class="back-btn" onclick="window.location.href='/'">← Back to Editor</button>
+    <button class="options-btn" onclick="openModal()">Options ⚙️</button>
+
+    <!-- ===== PLAYER OPTIONS MODAL ===== -->
+    <div class="modal" id="optionsModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <h2 style="font-family:'Cinzel',serif;color:#8b0000">Choose Active Heroes</h2>
+            <div class="hero-grid" id="heroGrid"></div>
+            <button class="save-btn" onclick="saveOptions()">Save & Close</button>
+        </div>
+    </div>
 
     <div class="container">
         <h1>Bran Castle</h1>
-        <div class="card-counter" id="cardCounter">Cards Left: 60</div>
-
+        <div class="card-counter" id="cardCounter">Cards Left: 0</div>
         <button class="reset-btn" onclick="resetDeck()">Reset Deck</button>
 
         <div class="cards-container">
+            <!-- NIGHT -->
             <div class="card-container night-card" onclick="selectCard('night')">
                 <div class="card-type-label">Night Card</div>
                 <div class="card" id="nightCard">
-                    <div class="card-face card-back night">
-                        <div class="card-back-text"></div>
-                    </div>
+                    <div class="card-face card-back night"><div class="card-back-text"></div></div>
                     <div class="card-face card-front">
                         <div class="card-id" id="nightCardId"></div>
                         <div class="card-content" id="nightCardContent">
@@ -431,13 +230,11 @@
                     </div>
                 </div>
             </div>
-
+            <!-- DAY -->
             <div class="card-container day-card" onclick="selectCard('day')">
                 <div class="card-type-label">Day Card</div>
                 <div class="card" id="dayCard">
-                    <div class="card-face card-back day">
-                        <div class="card-back-text"></div>
-                    </div>
+                    <div class="card-face card-back day"><div class="card-back-text"></div></div>
                     <div class="card-face card-front">
                         <div class="card-id" id="dayCardId"></div>
                         <div class="card-content" id="dayCardContent">
@@ -461,196 +258,175 @@
         <source src="/static/flipcard_sfx.mp3" type="audio/mpeg">
     </audio>
 
-    <script>
-        let currentCardData = { night: null, day: null };
-        let selectedCard = null;
-        let cardStates = { night: 'back', day: 'back' };
-        let cardsLeft = 60;
-        let deckSize = 60;
-        let audioEnabled = true;
+<script>
+/* ============================================================================ */
+/*                               STATIC-DECK LOGIC                              */
+/* ============================================================================ */
+const HEROES = [
+  ['van_helsing'    ,'Van Helsing'   ],
+  ['dr_seward'      ,'Dr Seward'     ],
+  ['quincey_morris' ,'Quincey Morris'],
+  ['lord_godalming' ,'Lord Godalming'],
+  ['mina_harker'    ,'Mina Harker'   ],
+  ['jonathan_harker','Jonathan Harker']
+];
 
-        async function loadConfig() {
-            try {
-                const response = await fetch('/api/config');
-                const config = await response.json();
-                deckSize = config.deck_size || 60;
-                
-                // Load cards left from localStorage
-                const storedCardsLeft = localStorage.getItem('cardsLeft');
-                if (storedCardsLeft !== null && !isNaN(parseInt(storedCardsLeft, 10))) {
-                    cardsLeft = parseInt(storedCardsLeft, 10);
-                } else {
-                    cardsLeft = deckSize;
-                    localStorage.setItem('cardsLeft', cardsLeft);
-                }
-                
-                updateCounterDisplay();
-            } catch (error) {
-                console.error('Failed to load config:', error);
-            }
-        }
+let activeHeroes = JSON.parse(localStorage.getItem('activeHeroes')||'{}');
+if(Object.keys(activeHeroes).length===0){HEROES.forEach(([k])=>activeHeroes[k]=true)}
 
-        function updateCounterDisplay() {
-            document.getElementById('cardCounter').textContent = `Cards Left: ${cardsLeft}`;
-        }
+const CARD_PATHS = {
+  night:'cards/night/index.json',
+  day  :'cards/day/index.json'
+};
+let deck={night:[],day:[]},drawIndex={night:0,day:0};
+let cardsLeft=0,audioEnabled=true;
 
-        function resetDeck() {
-            if (confirm('Are you sure you want to reset the deck? This will reset the card counter.')) {
-                cardsLeft = deckSize;
-                localStorage.setItem('cardsLeft', cardsLeft);
-                updateCounterDisplay();
-                showError('Deck reset successfully!', false);
-            }
-        }
+/* ---------------- MODAL HANDLERS ---------------- */
+function buildHeroGrid(){
+  const grid=document.getElementById('heroGrid');
+  grid.innerHTML='';
+  HEROES.forEach(([key,label])=>{
+    const wrap=document.createElement('label');
+    wrap.className='hero-item';
+    wrap.innerHTML=`<input type="checkbox" id="${key}">${label}`;
+    wrap.querySelector('input').checked=!!activeHeroes[key];
+    grid.appendChild(wrap);
+  });
+}
+function openModal(){buildHeroGrid();document.getElementById('optionsModal').style.display='block'}
+function closeModal(){document.getElementById('optionsModal').style.display='none'}
+function saveOptions(){
+  HEROES.forEach(([k])=>{activeHeroes[k]=document.getElementById(k).checked});
+  localStorage.setItem('activeHeroes',JSON.stringify(activeHeroes));
+  closeModal();
+}
 
-        function selectCard(cardType) {
-            if (selectedCard === cardType && cardStates[cardType] === 'front') {
-                showCardBack(cardType);
-                resetToTwoCards();
-                return;
-            }
-            if (selectedCard && selectedCard !== cardType) {
-                showCardBack(selectedCard);
-            }
-            selectAndCenterCard(cardType);
-            drawCard(cardType);
-        }
+/* ---------------- LOADING & SHUFFLING ---------------- */
+async function fetchCards(type){
+  const list=await (await fetch(CARD_PATHS[type])).json();
+  const arr=await Promise.all(list.map(f=>fetch(`cards/${type}/${f}`).then(r=>r.json())));
+  deck[type]=arr;
+}
+async function loadAllCards(){
+  showLoading(true);
+  await Promise.all(['night','day'].map(fetchCards));
+  shuffleDeck();
+  cardsLeft=deck.day.length+deck.night.length;
+  localStorage.setItem('cardsLeft',cardsLeft);
+  updateCounterDisplay();
+  showLoading(false);
+}
+function shuffleDeck(){
+  ['night','day'].forEach(t=>{
+    deck[t].sort(()=>Math.random()-0.5);
+    drawIndex[t]=0;
+  });
+}
 
-        function selectAndCenterCard(cardType) {
-            selectedCard = cardType;
-            const nightContainer = document.querySelector('.night-card');
-            const dayContainer = document.querySelector('.day-card');
-            if (cardType === 'night') {
-                nightContainer.classList.add('selected');
-                dayContainer.classList.add('hidden');
-            } else {
-                dayContainer.classList.add('selected');
-                nightContainer.classList.add('hidden');
-            }
-        }
+/* ---------------- DRAW LOGIC ---------------- */
+function nextEligibleCard(type){
+  const d=deck[type];
+  while(drawIndex[type]<d.length){
+    const c=d[drawIndex[type]++];
+    if((c.required_heroes||[]).every(h=>activeHeroes[h])) return c;
+  }
+  return null;
+}
 
-        function resetToTwoCards() {
-            selectedCard = null;
-            document.querySelector('.night-card').classList.remove('selected', 'hidden');
-            document.querySelector('.day-card').classList.remove('selected', 'hidden');
-        }
+/* ============================================================================ */
+/*                         UI BEHAVIOUR  (unchanged logic)                      */
+/* ============================================================================ */
+let selectedCard=null,cardStates={night:'back',day:'back'};
+function updateCounterDisplay(){
+  document.getElementById('cardCounter').textContent=`Cards Left: ${cardsLeft}`;
+}
+function resetDeck(){
+  if(!confirm('Are you sure you want to reset the deck?'))return;
+  shuffleDeck();cardsLeft=deck.day.length+deck.night.length;
+  localStorage.setItem('cardsLeft',cardsLeft);updateCounterDisplay();
+  showError('Deck reset successfully!',false);
+  if(selectedCard){showCardBack(selectedCard);resetToTwoCards();}
+}
+function selectCard(type){
+  if(selectedCard===type && cardStates[type]==='front'){showCardBack(type);resetToTwoCards();return;}
+  if(selectedCard && selectedCard!==type)showCardBack(selectedCard);
+  selectAndCenterCard(type);drawCard(type);
+}
+function selectAndCenterCard(type){
+  selectedCard=type;
+  const nightC=document.querySelector('.night-card');
+  const dayC=document.querySelector('.day-card');
+  if(type==='night'){nightC.classList.add('selected');dayC.classList.add('hidden');}
+  else{dayC.classList.add('selected');nightC.classList.add('hidden');}
+}
+function resetToTwoCards(){
+  selectedCard=null;
+  document.querySelector('.night-card').classList.remove('selected','hidden');
+  document.querySelector('.day-card').classList.remove('selected','hidden');
+}
+function showCardFront(type){
+  if(cardStates[type]==='front')return;
+  cardStates[type]='front';
+  const card=document.getElementById(`${type}Card`);
+  card.classList.add('flipped');
+  card.closest('.card-container').classList.add('expanded');
+  if(audioEnabled)playCardFlipSound();
+}
+function showCardBack(type){
+  if(cardStates[type]==='back')return;
+  cardStates[type]='back';
+  const card=document.getElementById(`${type}Card`);
+  card.classList.remove('flipped');
+  card.closest('.card-container').classList.remove('expanded');
+  const cardContent=document.getElementById(`${type}CardContent`);
+  const defaultTitle=type.charAt(0).toUpperCase()+type.slice(1)+' Card';
+  const defaultStory=type==='night'?'Click to reveal the nightmares that await...':'Click to discover what the day brings...';
+  cardContent.innerHTML=`<div class="card-title">${defaultTitle}</div><div class="card-story">${defaultStory}</div>`;
+  document.getElementById(`${type}CardId`).textContent='';
+  if(audioEnabled)playCardFlipSound();
+}
+function playCardFlipSound(){
+  const flip=document.getElementById('flipAudio');flip.currentTime=0;flip.play().catch(()=>{});
+}
+async function drawCard(type){
+  if(cardsLeft<=0){showError('The deck is empty. Reset the deck to play again.',true);resetToTwoCards();return;}
+  const cardData=nextEligibleCard(type);
+  if(!cardData){showError('No eligible cards left for that type.',true);resetToTwoCards();return;}
+  cardsLeft--;localStorage.setItem('cardsLeft',cardsLeft);updateCounterDisplay();
+  displayCard(cardData,type);
+}
+function displayCard(data,type){
+  const cardContent=document.getElementById(`${type}CardContent`);
+  document.getElementById(`${type}CardId`).textContent=`ID: ${data.id.substring(0,8)}`;
+  cardContent.innerHTML=`
+    <div class="card-title">${data.title}</div>
+    <div class="card-story">${data.story}</div>
+    <div class="card-effect"><strong>Effect:</strong> ${data.effect}</div>
+    <div class="weather-indicator">Weather: ${data.weather}</div>`;
+  showCardFront(type);
+}
 
-        function showCardFront(cardType) {
-            if (cardStates[cardType] === 'front') return;
-            cardStates[cardType] = 'front';
-            const card = document.getElementById(`${cardType}Card`);
-            card.classList.add('flipped');
-            card.closest('.card-container').classList.add('expanded');
-            if (audioEnabled) playCardFlipSound();
-        }
+/* ---------------- UX HELPERS ---------------- */
+function showLoading(show){document.getElementById('loading').style.display=show?'flex':'none'}
+function showError(msg,isErr=true){
+  const div=document.getElementById('error');
+  div.textContent=msg;div.style.display='block';
+  div.style.background=isErr?'rgba(255,0,0,.1)':'rgba(0,255,0,.1)';
+  div.style.borderColor=isErr?'#ff6b6b':'#4caf50';
+  div.style.color=isErr?'#ff6b6b':'#4caf50';
+  setTimeout(()=>{div.style.display='none'},5000);
+}
 
-        function showCardBack(cardType) {
-            if (cardStates[cardType] === 'back') return;
-            cardStates[cardType] = 'back';
-            const card = document.getElementById(`${cardType}Card`);
-            card.classList.remove('flipped');
-            card.closest('.card-container').classList.remove('expanded');
-            currentCardData[cardType] = null;
-            const cardContent = document.getElementById(`${cardType}CardContent`);
-            const defaultTitle = cardType.charAt(0).toUpperCase() + cardType.slice(1) + ' Card';
-            const defaultStory = cardType === 'night' 
-                ? 'Click to reveal the nightmares that await...' 
-                : 'Click to discover what the day brings...';
-            cardContent.innerHTML = `<div class="card-title">${defaultTitle}</div><div class="card-story">${defaultStory}</div>`;
-            document.getElementById(`${cardType}CardId`).textContent = '';
-            if (audioEnabled) playCardFlipSound();
-        }
+/* ---------------- KEYBOARD SHORTCUTS ---------------- */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){if(selectedCard){showCardBack(selectedCard);resetToTwoCards();}}
+  else if(e.key==='n'||e.key==='N')selectCard('night');
+  else if(e.key==='d'||e.key==='D')selectCard('day');
+  else if(e.key==='r'||e.key==='R')resetDeck();
+});
 
-        function playCardFlipSound() {
-            const flipAudio = document.getElementById('flipAudio');
-            flipAudio.currentTime = 0;
-            flipAudio.play().catch(e => console.log('Card flip sound failed:', e));
-        }
-
-        async function drawCard(cardType) {
-            if (cardsLeft <= 0) {
-                showError('The deck is empty. Reset the deck to play again.', true);
-                resetToTwoCards();
-                return;
-            }
-
-            showLoading(true);
-
-            try {
-                const response = await fetch(`/api/draw/${cardType}`);
-                if (!response.ok) {
-                    throw new Error('No eligible cards found');
-                }
-                
-                const cardData = await response.json();
-                
-                // Decrement counter
-                cardsLeft--;
-                localStorage.setItem('cardsLeft', cardsLeft);
-                updateCounterDisplay();
-                
-                currentCardData[cardType] = cardData;
-                displayCard(cardData, cardType);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                showError(`Failed to draw card: ${error.message}`, true);
-                showCardBack(cardType);
-                resetToTwoCards();
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        function displayCard(cardData, cardType) {
-            const cardContent = document.getElementById(`${cardType}CardContent`);
-            const cardId = document.getElementById(`${cardType}CardId`);
-            
-            cardId.textContent = `ID: ${cardData.id.substring(0, 8)}`;
-            
-            cardContent.innerHTML = `
-                <div class="card-title">${cardData.title}</div>
-                <div class="card-story">${cardData.story}</div>
-                <div class="card-effect"><strong>Effect:</strong> ${cardData.effect}</div>
-                <div class="weather-indicator">Weather: ${cardData.weather}</div>`;
-            
-            showCardFront(cardType);
-        }
-
-        function showLoading(show) {
-            document.getElementById('loading').style.display = show ? 'flex' : 'none';
-        }
-
-        function showError(message, isError = true) {
-            const errorDiv = document.getElementById('error');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-            errorDiv.style.background = isError ? 'rgba(255, 0, 0, 0.1)' : 'rgba(0, 255, 0, 0.1)';
-            errorDiv.style.borderColor = isError ? '#ff6b6b' : '#4caf50';
-            errorDiv.style.color = isError ? '#ff6b6b' : '#4caf50';
-            setTimeout(() => { errorDiv.style.display = 'none'; }, 5000);
-        }
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (selectedCard) {
-                    showCardBack(selectedCard);
-                    resetToTwoCards();
-                }
-            } else if (e.key === 'n' || e.key === 'N') {
-                selectCard('night');
-            } else if (e.key === 'd' || e.key === 'D') {
-                selectCard('day');
-            } else if (e.key === 'r' || e.key === 'R') {
-                resetDeck();
-            }
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            loadConfig();
-        });
-    </script>
+/* ---------------- INIT ---------------- */
+document.addEventListener('DOMContentLoaded',loadAllCards);
+</script>
 </body>
 </html>
