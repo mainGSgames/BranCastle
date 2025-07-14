@@ -1,0 +1,12 @@
+{
+  "title": "Vampiric Hunger",
+  "story": "A palpable hunger descends upon the castle, stirring the ancient evils within. The very air seems to drain your vitality.",
+  "effect": "At the end of each hero's turn, if they are the only hero in their current room, they lose 1 Health. If a hero is alone in the Master Bedroom, they lose 2 Health instead.",
+  "weather": "FAIR",
+  "likelihood": 5,
+  "required_heroes": [],
+  "id": "b36cbb31-a0d5-4e51-b6cc-b2a86e4c5a8a",
+  "type": "night",
+  "created_at": "2025-07-14T13:25:52.130552",
+  "updated_at": "2025-07-14T13:25:52.130552"
+}

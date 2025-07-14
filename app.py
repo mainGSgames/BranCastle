@@ -37,47 +37,51 @@ DEFAULT_CONFIG = {
 
 GAME_CONTEXT = """
 You are generating cards for \"Bran Castle - Dracula's Domains\", a gothic-horror co-operative board game for 1-6 players.
-Cards remain active for exactly six turns (the length of one Day or Night
-phase) unless the effect text states they are immediate.
+
+PHASE SEQUENCE AND CARD DRAWS:
+- The game alternates EXACTLY six Day turns then six Night turns.
+- At the MOMENT the phase flips (Day → Night or Night → Day), draw ONE card of the new phase type.
+- That card remains face-up and active for the entire next six-turn phase, then is discarded when the phase flips again.
+- Only ONE phase card (Day **or** Night) can ever be active at a time.
+
+MOVEMENT RULES (always in effect unless a card explicitly overrides):
+- Movement NEVER costs an action.
+- Each hero may make ONE movement per turn, up to FOUR steps.
+- Each staircase step counts as TWO of those steps.
+- No dice are rolled for movement.
 
 GAME OVERVIEW:
 - Players win by destroying all three vampire sisters and Count Dracula
   before drawing 60 cards.
 - Players lose if any hero dies or if the pre-chosen draw limit of
   50 / 60 / 70 cards is reached.
-- Each game turn: DAY phase (each hero gets 3 actions) ? NIGHT phase
-  (draw 1 Night card).
-- Heroes reduced to 1-2 HP become infected vampires and must be healed
-  with Holy Water whilst in a coffin.
+- Turn order: DAY phase (each hero gets 3 actions, plus the free movement) → NIGHT phase (heroes act, then draw 1 Night card at the phase flip).
 
 CARD DESIGN RULES:
 -1. Effects must reference specific game mechanics (D6 rolls, room names,
     item names, sister names).
 -2. Create tactical decisions - players should discuss their best response.
--3. Night cards are often immediate threats/challenges.
--4. Day cards offer risky opportunities or blessings; the active hero may
-    be teleported between rooms.
+-3. Night cards = immediate threats/challenges.
+-4. Day cards = risky opportunities/blessings; teleportation allowed.
 -5. Keep text concise - max 2 sentences for story; then clear mechanics.
 -6. Weather MUST influence the effect when relevant.
--7. Each Day or Night card lasts exactly 6 game rounds unless noted.
--8. There are six heroes (listed above) with their signature items.
-  
+-7. Unless stated otherwise, every Day or Night card lasts **exactly six turns - i.e. the entire upcoming phase.**
+-8. No duplicate titles or near-identical effects to recent cards.
+-9. Cards may modify movement distance or cost, **but must explicitly say so**; default rule is “movement is not an action”.
+
 VAMPIRE SISTERS (must be killed before Dracula appears):
-- Mary (White) - Spreads mourning & guilt; each of her strikes makes
-  heroes lose 1 Willpower. Weak to Garlic.
-- Sade (Red) - Seductive domina who dominates minds; drains 2 Health
-  in the Master Bedroom and 1 elsewhere. Weak to a Cross.
-- Luci (Black) - Dream-weaver causing hallucinations; erodes 1 Sanity.
-  Weak to Holy Water.
+- Mary (White) - spreads mourning & guilt; each strike makes heroes lose 1 Willpower. Weak to Garlic.
+- Sade (Red) - seductive domina; drains 2 Health in the Master Bedroom and 1 elsewhere. Weak to a Cross.
+- Luci (Black) - dream-weaver causing hallucinations; erodes 1 Sanity. Weak to Holy Water.
 
 HEROES & STARTING ITEMS:
 - Van Helsing (Cross), Dr Seward (Holy Water), Quincey Morris (Revolver)
 - Lord Godalming (Wooden Club), Mina Harker (Garlic), Jonathan Harker (Key)
 
 KEY MECHANICS:
-- Memory Search - Flip two face-down cards; if they match, gain that item.
-- Combat - Roll D6; results 5-6 hit vampires (items may modify).
-- Movement - 1 action to move between connected rooms.
+- Memory Search - flip two face-down cards; if they match, gain that item.
+- Combat - roll D6; results 5-6 hit vampires (items may modify).
+- Movement - **free once per turn**; up to 4 steps; stair step = 2 steps.
 - Health / Sanity / Willpower - tracked on a D6 (1-6); death at 0.
 
 WEATHER EFFECTS (entire round):
@@ -87,11 +91,11 @@ WEATHER EFFECTS (entire round):
 - THUNDER - Cannot stake vampires; Sisters deal +1 damage.
 
 ROOMS IN GAME:
-- 1 Catacombs Stairwell ? Dungeon / Crypt
-- 2 First-Floor Stairwell ? Entrance Hall / Blood Storage (Dracula here ? +1 Power)
-- 3 Second-Floor Stairwell ? Ballroom / Dining Room
-- 4 Third-Floor Stairwell ? Great Hall / Library
-- 5 Fourth-Floor Stairwell ? First Tower Bedroom / Master Bedroom / Second Tower Bedroom
+- 1 Catacombs Stairwell - Dungeon / Crypt
+- 2 First-Floor Stairwell - Entrance Hall / Blood Storage (Dracula here ? +1 Power)
+- 3 Second-Floor Stairwell - Ballroom / Dining Room
+- 4 Third-Floor Stairwell - Great Hall / Library
+- 5 Fourth-Floor Stairwell - First Tower Bedroom / Master Bedroom / Second Tower Bedroom
 - 6 Crypt - During Day you may attempt to impale sleeping vampires.
 - 7 Dungeon - Dragged outside? You awake here.
 - 8 Entrance Hall - All heroes start here at Daybreak.
@@ -112,6 +116,8 @@ ITEMS IN GAME:
 - Wooden Stakes (+Hammer) - Kill sleeping vampires on Will test 5-6.
 - Silver-Tipped Stake - Only item that can kill Dracula.
 - Revolver - On a 5-6 hit, the vampire is stunned for 1 turn.
+
+Remember: only one phase card is active at a time; it will last exactly six turns.
 """
 
 def load_config():
