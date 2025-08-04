@@ -1,0 +1,14 @@
+{
+  "title": "Whispers of the Ancestors",
+  "story": "The morning light reveals hidden truths, sharpening the minds of those attuned to the supernatural. But prolonged focus can be taxing.",
+  "effect": "For the duration of this Day phase, Dr Seward may use Holy Water and Van Helsing may use the Cross an additional time per turn. Each time either hero uses their item a second time in a single turn, they must roll a D6: on a 1, they lose 1 Sanity as the ancient energies take their toll.",
+  "likelihood": 5,
+  "required_heroes": [
+    "Dr Seward",
+    "Van Helsing"
+  ],
+  "id": "f42780c9-0d49-436b-ad86-3bf044c0dab3",
+  "type": "day",
+  "created_at": "2025-08-04T15:15:23.112890",
+  "updated_at": "2025-08-04T15:15:23.112890"
+}
