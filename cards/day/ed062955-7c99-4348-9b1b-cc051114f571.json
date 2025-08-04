@@ -1,0 +1,11 @@
+{
+  "title": "Secret Stairways",
+  "story": "Ancient, forgotten maps found in a hidden alcove reveal shortcuts through the very stone of the castle. Expedience comes with its own price.",
+  "effect": "For the duration of this Day phase, any movement taken *between* two different Stairwell rooms (e.g., Catacombs Stairwell to First-Floor Stairwell, or Fourth-Floor Stairwell to Third-Floor Stairwell) costs 1 movement step instead of 2. Each time a hero uses this shortcut, they must roll a D6: on a 1, they lose 1 Health.",
+  "likelihood": 7,
+  "required_heroes": [],
+  "id": "ed062955-7c99-4348-9b1b-cc051114f571",
+  "type": "day",
+  "created_at": "2025-08-04T15:15:11.553215",
+  "updated_at": "2025-08-04T15:15:11.553215"
+}
