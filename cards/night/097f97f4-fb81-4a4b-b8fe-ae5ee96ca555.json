@@ -1,0 +1,12 @@
+{
+  "title": "Phantom Footfalls",
+  "story": "The grand halls echo with phantom steps, making it difficult to discern friend from foe, or even which way is forward.",
+  "effect": "While this card is active, whenever a hero moves into a room that already contains another hero, the moving hero must immediately roll a D6. On a result of 1-2, they are disoriented and lose 1 Sanity. Furthermore, if Lord Godalming or Quincey Morris performs a Combat action while in the same room as another hero, they must immediately lose 1 Health.",
+  "weather": "FAIR",
+  "likelihood": 5,
+  "required_heroes": [],
+  "id": "097f97f4-fb81-4a4b-b8fe-ae5ee96ca555",
+  "type": "night",
+  "created_at": "2025-07-20T11:54:53.895137",
+  "updated_at": "2025-07-20T11:54:53.895137"
+}

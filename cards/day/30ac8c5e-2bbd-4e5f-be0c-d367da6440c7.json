@@ -1,0 +1,12 @@
+{
+  "title": "Haste's Blessing",
+  "story": "The morning sun casts long shadows, sharpening your senses but urging a swift hand. Time feels precious, slipping away even as new opportunities arise.",
+  "effect": "During this Day phase, all heroes gain +1 to their D6 combat rolls when attacking any target. However, this Day phase will last only 5 turns instead of the usual 6.",
+  "weather": "FAIR",
+  "likelihood": 6,
+  "required_heroes": [],
+  "id": "30ac8c5e-2bbd-4e5f-be0c-d367da6440c7",
+  "type": "day",
+  "created_at": "2025-07-20T11:35:41.316031",
+  "updated_at": "2025-07-20T11:35:41.316031"
+}

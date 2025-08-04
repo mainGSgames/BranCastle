@@ -1,0 +1,12 @@
+{
+  "title": "Oppressive Air",
+  "story": "The shifting clouds outside seem to press down upon the castle, making its very architecture feel oppressive. Hallways twist and turn, and exits seem to vanish from sight.",
+  "effect": "While this card is active, whenever a hero moves into a Stairwell (Catacombs, First-Floor, Second-Floor, Third-Floor) OR moves out of a Stairwell into an adjacent room, they must immediately roll a D6. On a result of 1-2, they are momentarily disoriented and their maximum movement for their next turn is reduced by 1 step (to a minimum of 1 step). Furthermore, if a hero attempts to move into a room already occupied by two or more other heroes, they cannot enter that room and their movement for the current turn immediately ends. They also lose 1 Willpower.",
+  "weather": "CLOUD",
+  "likelihood": 6,
+  "required_heroes": [],
+  "id": "1548e111-cf42-43fa-a171-8dae53b31f06",
+  "type": "night",
+  "created_at": "2025-07-20T11:55:38.418220",
+  "updated_at": "2025-07-20T11:55:38.418220"
+}

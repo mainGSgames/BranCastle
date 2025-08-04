@@ -1,0 +1,12 @@
+{
+  "title": "The Castle's Grasp",
+  "story": "Under the clear night sky, the very architecture of Dracula's castle seems to shift and constrict, making every step a perilous journey for the heroes.",
+  "effect": "While this card is active, each hero's maximum movement is reduced by 1 step (to a maximum of 3 steps). Additionally, any hero who ends their turn in the Blood Storage, Crypt, or Dungeon must roll a D6. On a result of 1-2, they are grappled by unseen forces and cannot take any actions on their next turn.",
+  "weather": "FAIR",
+  "likelihood": 6,
+  "required_heroes": [],
+  "id": "ed99fe1f-e072-4f39-a8be-17780f3a2128",
+  "type": "night",
+  "created_at": "2025-07-20T11:52:41.394827",
+  "updated_at": "2025-07-20T11:52:41.394827"
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Misty Apparitions",
+  "story": "The swirling mist reveals fleeting, horrifying visions. Distorted figures stalk the halls, making every turn a heart-stopping gamble.",
+  "effect": "While this card is active, whenever a hero moves into a new room (not a stairwell) that is currently empty of other heroes or Vampire Sisters, they must immediately roll a D6. On a result of 1-3, a terrifying apparition manifests from the mist, and the hero loses 1 Sanity. If the hero is Jonathan Harker, he loses an additional 1 Willpower. Additionally, if a hero successfully obtains an item via Memory Search, they must immediately roll a D6. On a result of 1-5, the item is consumed by the mist and removed from the game.",
+  "weather": "MIST",
+  "likelihood": 6,
+  "required_heroes": [
+    "Jonathan Harker"
+  ],
+  "id": "f9dd9487-6a0f-4aff-8c42-58b93dd6776e",
+  "type": "night",
+  "created_at": "2025-07-20T11:54:38.487730",
+  "updated_at": "2025-07-20T11:54:38.487730"
+}

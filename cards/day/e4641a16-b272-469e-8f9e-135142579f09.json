@@ -1,0 +1,12 @@
+{
+  "title": "Thunderous Transit",
+  "story": "The castle groans under the relentless thunder, each booming crash reverberating through the stone, momentarily disorienting even the most ancient inhabitants.",
+  "effect": "During this Day phase, any hero may spend one action to instantly teleport to any unoccupied room on their current floor. However, due to the confusing echoes of the storm, immediately after teleporting, roll a D6: on a result of 1-2, a random Vampire Sister (Mary, Sade, or Luci) is also teleported to an adjacent room of the hero's destination, drawn by the psychic ripples of the shift. If multiple adjacent rooms are available, players choose which one.",
+  "weather": "THUNDER",
+  "likelihood": 5,
+  "required_heroes": [],
+  "id": "e4641a16-b272-469e-8f9e-135142579f09",
+  "type": "day",
+  "created_at": "2025-07-20T11:37:27.858521",
+  "updated_at": "2025-07-20T11:37:27.858521"
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Turbulent Ascent",
+  "story": "The furious storm outside funnels through the castle's ancient stairwells, making passage treacherous yet surprisingly swift in places.",
+  "effect": "During this Day phase, movement through any Stairwell (Catacombs, First-Floor, Second-Floor, Third-Floor, Fourth-Floor) counts as only 1 step instead of 2. However, each time a hero passes through a Stairwell, they must immediately roll a D6. On a result of 1 or 2, they lose 1 Health from falling debris or losing their footing.",
+  "weather": "STORM",
+  "likelihood": 6,
+  "required_heroes": [],
+  "id": "03a13e42-edcf-4b33-b484-2e00e4b0d569",
+  "type": "day",
+  "created_at": "2025-07-20T11:36:11.683099",
+  "updated_at": "2025-07-20T11:36:11.683099"
+}

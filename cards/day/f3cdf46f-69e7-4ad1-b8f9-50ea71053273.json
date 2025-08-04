@@ -1,0 +1,12 @@
+{
+  "title": "Mist's Deception",
+  "story": "The ancient castle grounds are swallowed by a disorienting mist, making distant rooms seem closer. Yet, the veil also hides insidious dangers within.",
+  "effect": "During this Day phase, all heroes' maximum movement increases by 2 steps (to a total of 6 steps). However, any hero who ends their movement in a room that is not a Stairwell or Bedroom must immediately lose 1 Sanity.",
+  "weather": "MIST",
+  "likelihood": 5,
+  "required_heroes": [],
+  "id": "f3cdf46f-69e7-4ad1-b8f9-50ea71053273",
+  "type": "day",
+  "created_at": "2025-07-20T11:36:44.799508",
+  "updated_at": "2025-07-20T11:36:44.799508"
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Storm-Lashed Walls",
+  "story": "The tempest outside rages, battering the ancient walls of Bran Castle. Loose stones and chilling drafts make every corridor a peril.",
+  "effect": "While this card is active, movement through any Stairwell (Catacombs, First-Floor, Second-Floor, Third-Floor) costs an additional 1 step (total 3 steps per staircase step). Additionally, at the end of each hero's turn, if they are in a room with large windows (Ballroom, Dining Room, Great Hall, First Tower Bedroom, Master Bedroom, or Second Tower Bedroom), they must roll a D6. On a roll of 1-2, they are struck by debris or cold drafts and lose 1 Health.",
+  "weather": "STORM",
+  "likelihood": 6,
+  "required_heroes": [],
+  "id": "90fdf73a-4447-4b73-b932-39bf35bafd08",
+  "type": "night",
+  "created_at": "2025-07-20T11:52:21.470508",
+  "updated_at": "2025-07-20T11:52:21.470508"
+}

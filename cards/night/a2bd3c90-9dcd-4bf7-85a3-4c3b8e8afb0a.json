@@ -1,0 +1,12 @@
+{
+  "title": "Unsettling Presence",
+  "story": "The castle's ancient stones seem to breathe with malevolence, and the shadows twist into unsettling shapes. A palpable dread permeates the air.",
+  "effect": "While this card is active, whenever a hero moves into a room already containing a Vampire Sister, their movement immediately ends, and they cannot make any further movement for that turn. Additionally, if a hero performs a Combat action against a Vampire Sister and successfully hits (roll 5-6), the Sister immediately performs a counter-attack, dealing 1 damage of her type (Mary: 1 Willpower, Sade: 1 Health, Luci: 1 Sanity). This damage is applied *before* the hero can use any blocking items. If Jonathan Harker is the hero performing the Combat action, he loses an additional 1 Willpower due to the sudden fright, even if he misses.",
+  "weather": "FAIR",
+  "likelihood": 6,
+  "required_heroes": [],
+  "id": "a2bd3c90-9dcd-4bf7-85a3-4c3b8e8afb0a",
+  "type": "night",
+  "created_at": "2025-07-20T11:56:59.357571",
+  "updated_at": "2025-07-20T11:56:59.357571"
+}

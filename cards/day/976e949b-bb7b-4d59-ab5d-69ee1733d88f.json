@@ -1,0 +1,12 @@
+{
+  "title": "Misty Omens",
+  "story": "A thick, unnatural mist clings to the castle, blurring familiar shapes and muffling sounds. Whispers seem to drift on the cold air, hinting at forgotten paths and hidden secrets.",
+  "effect": "During this Day phase, heroes may perform a Memory Search in any room. However, due to the pervasive mist, Memory Searches still only succeed on a D6 roll of 6. Furthermore, if a Memory Search attempt fails, the hero immediately loses 1 Sanity from the disorienting whispers and spectral visions.",
+  "weather": "MIST",
+  "likelihood": 5,
+  "required_heroes": [],
+  "id": "976e949b-bb7b-4d59-ab5d-69ee1733d88f",
+  "type": "day",
+  "created_at": "2025-07-20T11:36:25.869284",
+  "updated_at": "2025-07-20T11:36:25.869284"
+}

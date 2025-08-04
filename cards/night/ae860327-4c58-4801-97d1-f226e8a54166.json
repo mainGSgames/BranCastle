@@ -1,0 +1,12 @@
+{
+  "title": "The Crimson Call",
+  "story": "A pervasive, seductive melody fills the air, drawing the unwary deeper into the castle's embrace.",
+  "effect": "While this card is active, at the start of each hero's turn, if they are in the Ballroom, Dining Room, or Great Hall, they must roll a D6. On a 1-2, they are compelled to move 1 step directly towards the Master Bedroom. If this movement is impossible (e.g., blocked by a locked door without Jonathan Harker's Key, or the target room already contains two other heroes), they lose 1 Sanity instead. This compelled movement does not count towards their regular movement for the turn. Additionally, Sade (Red Sister) gains +1 to her Combat rolls against heroes in the Master Bedroom.",
+  "weather": "FAIR",
+  "likelihood": 5,
+  "required_heroes": [],
+  "id": "ae860327-4c58-4801-97d1-f226e8a54166",
+  "type": "night",
+  "created_at": "2025-07-20T11:56:46.295171",
+  "updated_at": "2025-07-20T11:56:46.295171"
+}

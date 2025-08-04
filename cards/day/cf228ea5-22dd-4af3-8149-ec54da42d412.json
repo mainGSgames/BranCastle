@@ -1,0 +1,12 @@
+{
+  "title": "Whispers of Gloom",
+  "story": "The persistent overcast sky casts the castle in a muted, dreamlike gloom, making familiar paths feel new and ancient whispers stir.",
+  "effect": "During this Day phase, the first time each hero enters a new room (one they have not entered this turn), they may immediately gain 1 Willpower or 1 Sanity (player's choice). However, each time a hero gains a resource this way, a random Vampire Sister (Mary, Sade, or Luci) immediately moves 3 steps directly towards that hero's room, drawn by the psychic ripples of disturbed serenity.",
+  "weather": "CLOUD",
+  "likelihood": 6,
+  "required_heroes": [],
+  "id": "cf228ea5-22dd-4af3-8149-ec54da42d412",
+  "type": "day",
+  "created_at": "2025-07-20T11:39:04.085192",
+  "updated_at": "2025-07-20T11:39:04.085192"
+}

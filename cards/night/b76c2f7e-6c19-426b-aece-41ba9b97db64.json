@@ -1,0 +1,12 @@
+{
+  "title": "Damp Oppression",
+  "story": "A heavy shroud of cloud settles over the castle, bringing a deep chill that seeps into every stone. The very air seems to drain warmth and resolve from those who linger.",
+  "effect": "While this card is active, at the start of each of their turns, heroes in the Entrance Hall, Ballroom, Dining Room, Great Hall, or any Tower Bedroom (First, Master, Second) lose 1 Willpower. Additionally, any hero who ends their turn in a Stairwell (Catacombs, First-Floor, Second-Floor, Third-Floor) loses 1 Health.",
+  "weather": "CLOUD",
+  "likelihood": 5,
+  "required_heroes": [],
+  "id": "b76c2f7e-6c19-426b-aece-41ba9b97db64",
+  "type": "night",
+  "created_at": "2025-07-20T11:53:20.797916",
+  "updated_at": "2025-07-20T11:53:20.797916"
+}
