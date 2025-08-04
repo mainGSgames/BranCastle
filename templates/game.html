@@ -125,11 +125,6 @@
             background:rgba(139,0,0,.1);border:1px solid #8b0000;border-radius:10px;
             padding:15px;margin-top:20px;font-size:1rem;line-height:1.5;
         }
-        .weather-indicator{
-            display:inline-block;padding:5px 15px;background:rgba(139,0,0,.3);
-            border:1px solid #8b0000;border-radius:20px;margin-top:15px;
-            font-size:.9rem;text-transform:uppercase;letter-spacing:1px;
-        }
         .card-id{position:absolute;top:5px;right:10px;font-size:.7rem;color:#666;font-family:monospace}
 
         /* ------------- ERROR & LOADING ------------- */
@@ -401,8 +396,7 @@ function displayCard(data,type){
   cardContent.innerHTML=`
     <div class="card-title">${data.title}</div>
     <div class="card-story">${data.story}</div>
-    <div class="card-effect"><strong>Effect:</strong> ${data.effect}</div>
-    <div class="weather-indicator">Weather: ${data.weather}</div>`;
+    <div class="card-effect"><strong>Effect:</strong> ${data.effect}</div>`;
   showCardFront(type);
 }
 

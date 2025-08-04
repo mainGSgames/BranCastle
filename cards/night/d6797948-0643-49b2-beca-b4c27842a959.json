@@ -1,0 +1,11 @@
+{
+  "title": "The Castle's Sigh",
+  "story": "The very foundations of the castle seem to groan and shift beneath your feet. Distant whispers echo up and down the stairwells, attempting to ensnare weary minds.",
+  "effect": "During this Night phase, each staircase step now costs 3 movement steps instead of 2. Additionally, any hero who ends their turn on a Stairwell room (Catacombs, First-Floor, Second-Floor, or Third-Floor Stairwell) must roll a D6: on a 1-2, they lose 1 Sanity; on a 3-4, they lose 1 Willpower.",
+  "likelihood": 6,
+  "required_heroes": [],
+  "id": "d6797948-0643-49b2-beca-b4c27842a959",
+  "type": "night",
+  "created_at": "2025-08-04T15:13:25.115719",
+  "updated_at": "2025-08-04T15:13:25.115719"
+}

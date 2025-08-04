@@ -1,0 +1,11 @@
+{
+  "title": "Creeping Dread",
+  "story": "The very air of the castle thickens with unseen horrors, stirring primal fears in the hearts of the heroes.",
+  "effect": "During this Night phase, at the start of each hero's turn, they must test their Sanity (roll D6). If the result is 1-3, they lose 1 Sanity. If a hero's Sanity drops to 0 this way, they are momentarily paralyzed and immediately lose 1 action this turn.",
+  "likelihood": 7,
+  "required_heroes": [],
+  "id": "42e0344e-6392-4ea4-8438-aa388a9e440b",
+  "type": "night",
+  "created_at": "2025-08-04T15:13:12.087382",
+  "updated_at": "2025-08-04T15:13:12.087382"
+}

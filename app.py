@@ -64,10 +64,9 @@ CARD DESIGN RULES:
 -3. Night cards = immediate threats/challenges.
 -4. Day cards = risky opportunities/blessings; teleportation allowed.
 -5. Keep text concise - max 2 sentences for story; then clear mechanics.
--6. Weather MUST influence the effect when relevant.
--7. Unless stated otherwise, every Day or Night card lasts **exactly six turns - i.e. the entire upcoming phase.**
--8. No duplicate titles or near-identical effects to recent cards.
--9. Cards may modify movement distance or cost, **but must explicitly say so**; default rule is “movement is not an action”.
+-6. Unless stated otherwise, every Day or Night card lasts **exactly six turns - i.e. the entire upcoming phase.**
+-7. No duplicate titles or near-identical effects to recent cards.
+-8. Cards may modify movement distance or cost, **but must explicitly say so**; default rule is "movement is not an action".
 
 VAMPIRE SISTERS (must be killed before Dracula appears):
 - Mary (White) - spreads mourning & guilt; each strike makes heroes lose 1 Willpower. Weak to Garlic.
@@ -83,12 +82,6 @@ KEY MECHANICS:
 - Combat - roll D6; results 5-6 hit vampires (items may modify).
 - Movement - **free once per turn**; up to 4 steps; stair step = 2 steps.
 - Health / Sanity / Willpower - tracked on a D6 (1-6); death at 0.
-
-WEATHER EFFECTS (entire round):
-- FAIR - No effect.
-- STORM - Day loses 1 round, Night gains 1 round, no crafting allowed.
-- MIST - Memory Searches succeed only on a D6 roll of 6.
-- THUNDER - Cannot stake vampires; Sisters deal +1 damage.
 
 ROOMS IN GAME:
 - 1 Catacombs Stairwell - Dungeon / Crypt
@@ -170,7 +163,7 @@ def delete_card(card_id):
             return True
     return False
 
-def generate_card_prompt(card_type, weather, existing_cards, active_heroes):
+def generate_card_prompt(card_type, existing_cards, active_heroes):
     # Get titles of existing cards to avoid duplicates
     recent = existing_cards[-10:]             # 👈 de 10 senaste
     recent_dump = json.dumps(
@@ -201,7 +194,6 @@ NIGHT CARD: Create an immediate threat or challenge. Examples:
 - Sister attacks specific rooms
 - Movement restrictions  
 - Resource drain
-- Weather interactions
 """
     
     day_instructions = """
@@ -209,7 +201,6 @@ DAY CARD: Create a risky opportunity or double-edged blessing. Examples:
 - Found supplies with a catch
 - Temporary advantages with costs
 - Information about vampire locations
-- Weather interactions
 """
     
     specific_instructions = night_instructions if card_type == "night" else day_instructions
@@ -218,7 +209,7 @@ DAY CARD: Create a risky opportunity or double-edged blessing. Examples:
 
 {heroes_context}
 
-Generate a {card_type.upper()} card with weather: {weather}.
+Generate a {card_type.upper()} card.
 
 RECENT_CARDS:
 {recent_dump}
@@ -231,7 +222,6 @@ Create a unique card that:
 - References specific game elements and active heroes
 - Has a brief story (max 2 sentences)
 - Has clear mechanical effects
-- Considers the current weather ({weather})
 - Assigns a likelihood weight (1-10, where 10 is most common)
 
 Respond in JSON:
@@ -239,7 +229,6 @@ Respond in JSON:
   "title": "Unique Card Title",
   "story": "Brief atmospheric text.",
   "effect": "Specific game effect",
-  "weather": "{weather}",
   "likelihood": 5,
   "required_heroes": []
 }}"""
@@ -319,8 +308,7 @@ def api_generate():
     generated_cards = []
     
     for i in range(count):
-        weather = random.choice(['FAIR', 'FAIR', 'FAIR', 'STORM', 'MIST', 'THUNDER', 'CLOUD'])
-        prompt = generate_card_prompt(card_type, weather, existing_cards, config['active_heroes'])
+        prompt = generate_card_prompt(card_type, existing_cards, config['active_heroes'])
         
         try:
             response = client.models.generate_content(
